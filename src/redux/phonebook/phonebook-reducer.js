@@ -13,8 +13,11 @@ import {
   filterContacts,
 } from './phonebook-actions';
 
+import { logOut } from '../users/auth-operations';
+
 const items = createReducer([], {
   [fetchContactsSuccess]: (_, { payload }) => payload,
+  [logOut.fulfilled]: state => (state = []),
   [addContactsSuccess]: (state, { payload }) => [...state, payload],
   [deleteContactsSuccess]: (state, { payload }) => state.filter(({ id }) => id !== payload),
 });
@@ -35,18 +38,8 @@ const filter = createReducer('', {
   [filterContacts]: (_, { payload }) => payload,
 });
 
-const error = createReducer(null, {
-  [fetchContactsError]: (_, action) => action.payload,
-  [fetchContactsRequest]: () => null,
-  [addContactsError]: (_, action) => action.payload,
-  [addContactsRequest]: () => null,
-  [deleteContactsError]: (_, action) => action.payload,
-  [deleteContactsRequest]: () => null,
-});
-
 export default combineReducers({
   items,
   filter,
   loading,
-  error,
 });

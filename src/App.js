@@ -8,10 +8,9 @@ import PrivateRoute from './components/routes/PrivateRoute';
 import PublicRoute from './components/routes/PublicRoute';
 
 const HomeViews = lazy(() => import('./views/HomeViews'));
-const RegisterView = lazy(() => import('./views/RegisterView'));
 const LoginView = lazy(() => import('./views/LoginView'));
+const RegisterView = lazy(() => import('./views/RegisterView'));
 const ContactsView = lazy(() => import('./views/ContactsView'));
-
 const App = () => {
   const dispatch = useDispatch();
 
@@ -28,11 +27,11 @@ const App = () => {
             <PublicRoute exact path="/">
               <HomeViews />
             </PublicRoute>
-            <PublicRoute exact path="/register" restricted>
-              <RegisterView />
-            </PublicRoute>
             <PublicRoute exact path="/login" redirectTo="/contacts" restricted>
               <LoginView />
+            </PublicRoute>
+            <PublicRoute exact path="/register" redirectTo="/contacts" restricted>
+              <RegisterView />
             </PublicRoute>
             <PrivateRoute path="/contacts" redirectTo="/login">
               <ContactsView />

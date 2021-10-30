@@ -12,7 +12,8 @@ import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import contactsReducer from './phonebook/phonebook-reducer';
-import { authSlice, error } from './users/auth-slice';
+import { authSlice } from './users/auth-slice';
+import { errorReducer } from './error/error-reducer';
 
 const persistConfig = {
   key: 'auth',
@@ -24,7 +25,7 @@ const store = configureStore({
   reducer: {
     contacts: contactsReducer,
     auth: persistReducer(persistConfig, authSlice.reducer),
-    error: error,
+    error: errorReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware({
